@@ -1,0 +1,92 @@
+
+{
+	"response": {
+		"version": "0.1"
+		,"termsofService": "http://www.wunderground.com/weather/api/d/terms.html"
+		,"features": {
+		"conditions": 1
+		}
+	}
+		,	"current_observation": {
+		"image": {
+		"url":"http://icons-ak.wxug.com/graphics/wu2/logo_130x80.png",
+		"title":"Weather Underground",
+		"link":"http://www.wunderground.com"
+		},
+		"display_location": {
+		"full":"Sydney, New South Wales",
+		"city":"Sydney",
+		"state":"NW",
+		"state_name":"New South Wales",
+		"country":"AU",
+		"country_iso3166":"AU",
+		"zip":"00000",
+		"latitude":"-33.95000076",
+		"longitude":"151.17999268",
+		"elevation":"3.00000000"
+		},
+		"observation_location": {
+		"full":"Sydney, ",
+		"city":"Sydney",
+		"state":"",
+		"country":"AU",
+		"country_iso3166":"AU",
+		"latitude":"-33.95000076",
+		"longitude":"151.17999268",
+		"elevation":"10 ft"
+		},
+		"estimated": {
+		},
+		"station_id":"YSSY",
+		"observation_time":"Last Updated on April 1, 6:00 PM EST",
+		"observation_time_rfc822":"Mon, 01 Apr 2013 18:00:00 +1100",
+		"observation_epoch":"1364799600",
+		"local_time_rfc822":"Mon, 01 Apr 2013 18:19:11 +1100",
+		"local_epoch":"1364800751",
+		"local_tz_short":"EST",
+		"local_tz_long":"Australia/Sydney",
+		"local_tz_offset":"+1100",
+		"weather":"Scattered Clouds",
+		"temperature_string":"72 F (22 C)",
+		"temp_f":72,
+		"temp_c":22,
+		"relative_humidity":"69%",
+		"wind_string":"From the ENE at 13 MPH",
+		"wind_dir":"ENE",
+		"wind_degrees":70,
+		"wind_mph":13,
+		"wind_gust_mph":0,
+		"wind_kph":20,
+		"wind_gust_kph":0,
+		"pressure_mb":"1015",
+		"pressure_in":"29.98",
+		"pressure_trend":"0",
+		"dewpoint_string":"61 F (16 C)",
+		"dewpoint_f":61,
+		"dewpoint_c":16,
+		"heat_index_string":"NA",
+		"heat_index_f":"NA",
+		"heat_index_c":"NA",
+		"windchill_string":"NA",
+		"windchill_f":"NA",
+		"windchill_c":"NA",
+		"feelslike_string":"72 F (22 C)",
+		"feelslike_f":"72",
+		"feelslike_c":"22",
+		"visibility_mi":"6.2",
+		"visibility_km":"10.0",
+		"solarradiation":"",
+		"UV":"0",
+		"precip_1hr_string":"-9999.00 in (-9999.00 mm)",
+		"precip_1hr_in":"-9999.00",
+		"precip_1hr_metric":"-9999.00",
+		"precip_today_string":"0.00 in (0.0 mm)",
+		"precip_today_in":"0.00",
+		"precip_today_metric":"0.0",
+		"icon":"partlycloudy",
+		"icon_url":"http://icons-ak.wxug.com/i/c/k/partlycloudy.gif",
+		"forecast_url":"http://www.wunderground.com/global/stations/94767.html",
+		"history_url":"http://www.wunderground.com/history/airport/YSSY/2013/4/1/DailyHistory.html",
+		"ob_url":"http://www.wunderground.com/cgi-bin/findweather/getForecast?query=-33.95000076,151.17999268"
+	}
+}
