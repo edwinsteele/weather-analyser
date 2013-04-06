@@ -1,4 +1,4 @@
-from abstract_http_retriever import AbstractHTTPRetriever
+from base_retrievers import AbstractRetriever
 import decimal
 import datetime
 import json
@@ -6,7 +6,7 @@ import json
 __author__ = 'esteele'
 
 
-class BOMRetriever(AbstractHTTPRetriever):
+class BOMRetriever(AbstractRetriever):
     """
     Observations:
     http://www.bom.gov.au/products/IDN60901/IDN60901.94768.shtml#other_formats

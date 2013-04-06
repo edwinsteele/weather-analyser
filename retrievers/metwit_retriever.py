@@ -1,9 +1,9 @@
 __author__ = 'esteele'
 
-from abstract_http_retriever import AbstractHTTPRetriever
+from base_retrievers import AbstractRetriever
 
 
-class MetwitRetriever(AbstractHTTPRetriever):
+class MetwitRetriever(AbstractRetriever):
     """
     http://metwit.com/developers/docs/
     """

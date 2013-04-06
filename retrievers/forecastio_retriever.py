@@ -1,4 +1,4 @@
-from abstract_http_retriever import AbstractHTTPRetriever
+from base_retrievers import AbstractRetriever
 import decimal
 import datetime
 import json
@@ -6,7 +6,7 @@ import json
 __author__ = 'esteele'
 
 
-class ForecastIoRetriever(AbstractHTTPRetriever):
+class ForecastIoRetriever(AbstractRetriever):
     """
     https://developer.forecast.io/docs/v2
 

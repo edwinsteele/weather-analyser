@@ -6,7 +6,7 @@ import time
 __author__ = 'esteele'
 
 
-class AbstractHTTPRetriever:
+class AbstractRetriever:
     __metaclass__ = ABCMeta
 
     def __init__(self):
@@ -38,8 +38,8 @@ class AbstractHTTPRetriever:
         retrieve an observation
         """
 
-    def print_error(self, result):
-        print "Errback", result
+    def print_error(self, failure):
+        print "Errback", failure
 
     def retrieve_observations_by_schedule(self, location):
         reactor.callLater(self.observation_reload_delay,
@@ -73,7 +73,7 @@ class AbstractHTTPRetriever:
         # pprint.pprint([r.func for r in reactor.getDelayedCalls()])
 
     def handle_observation(self, result):
-        print "Handling ob for ", self.source
+        print "Handling %s observation" % (self.source,)
         # parse
         temperature_info = self.parse_observation_result_for_temperature(result)
         # store

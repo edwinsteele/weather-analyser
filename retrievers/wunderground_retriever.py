@@ -1,12 +1,12 @@
 __author__ = 'esteele'
 
-from abstract_http_retriever import AbstractHTTPRetriever
+from base_retrievers import AbstractRetriever
 import decimal
 import datetime
 import json
 
 
-class WundergroundRetriever(AbstractHTTPRetriever):
+class WundergroundRetriever(AbstractRetriever):
     """
     http://www.wunderground.com/weather/api/d/docs
 
