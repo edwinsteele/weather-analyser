@@ -25,3 +25,16 @@ class SingleForecast(object):
             self.start_datetime, self.end_datetime,
             self.temperature_min, self.temperature_max
         )
+
+
+class Observation(object):
+    def __init__(self, source, observation_datetime, temperature):
+        self.source = source
+        self.observation_datetime = observation_datetime
+        self.temperature = temperature
+
+    def print_summary(self):
+        print "%s: last observation result: time %s, air temp %s" % (
+            self.source,
+            self.observation_datetime,
+            self.temperature)

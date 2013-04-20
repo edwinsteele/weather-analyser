@@ -1,5 +1,5 @@
 from base_retrievers import AbstractRetriever
-from models import SingleForecast
+from models import Observation, SingleForecast
 import decimal
 import datetime
 import json
@@ -42,7 +42,7 @@ class ForecastIoRetriever(AbstractRetriever):
             parse_float=decimal.Decimal)["currently"]
         ob_datetime = datetime.datetime.fromtimestamp(
             float(most_recent_ob["time"]))
-        return ob_datetime, most_recent_ob["temperature"]
+        return Observation(self.source, ob_datetime, most_recent_ob["temperature"])
 
     def generate_forecast_request_for_location(self, location):
         # forecast and observation are in the same request

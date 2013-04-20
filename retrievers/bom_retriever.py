@@ -1,4 +1,5 @@
 from base_retrievers import AbstractRetriever
+from models import Observation, SingleForecast
 import decimal
 import datetime
 import json
@@ -50,7 +51,7 @@ class BOMRetriever(AbstractRetriever):
         ob_datetime = datetime.datetime.strptime(
             most_recent_ob["local_date_time_full"],
             "%Y%m%d%H%M%S")
-        return ob_datetime, most_recent_ob["air_temp"]
+        return Observation(self.source, ob_datetime, most_recent_ob["air_temp"])
 
     def parse_forecast_response(self, result):
         raise NotImplementedError

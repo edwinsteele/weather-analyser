@@ -10,7 +10,7 @@ class AbstractRetriever:
     __metaclass__ = ABCMeta
 
     def __init__(self):
-        self.last_temperature_info = (None, None)
+        self.last_observation = None
         self.forecasts = []
 
     @abstractproperty
@@ -78,11 +78,8 @@ class AbstractRetriever:
         reactor.callLater(period_seconds,
                           self.print_results_periodically,
                           period_seconds)
-        print "%s: %s last observation result: time %s, air temp %s" % (
-            time.ctime(),
-            self.source,
-            self.last_temperature_info[0],
-            self.last_temperature_info[1])
+        if self.last_observation:
+            self.last_observation.print_summary()
         [f.print_summary() for f in self.forecasts]
         # print "Delayed calls:"
         # pprint.pprint([r.func for r in reactor.getDelayedCalls()])
@@ -90,9 +87,9 @@ class AbstractRetriever:
     def handle_observation(self, response):
         print "Handling %s observation" % (self.source,)
         # parse
-        temperature_info = self.parse_observation_response(response)
+        ob = self.parse_observation_response(response)
         # store
-        self.last_temperature_info = temperature_info
+        self.last_observation = ob
 
     def handle_forecast(self, response):
         print "Handing %s forecast" % (self.source,)

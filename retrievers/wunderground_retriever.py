@@ -1,5 +1,5 @@
 from base_retrievers import AbstractRetriever
-from models import SingleForecast
+from models import Observation, SingleForecast
 import decimal
 import datetime
 import json
@@ -48,7 +48,7 @@ class WundergroundRetriever(AbstractRetriever):
             result, parse_int=decimal.Decimal)["current_observation"]
         ob_datetime = datetime.datetime.fromtimestamp(
             float(most_recent_ob["local_epoch"]))
-        return ob_datetime, most_recent_ob["temp_c"]
+        return Observation(self.source, ob_datetime, most_recent_ob["temp_c"])
 
     def parse_forecast_response(self, result):
         forecast_results = []
