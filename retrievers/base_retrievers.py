@@ -11,6 +11,7 @@ class AbstractRetriever:
 
     def __init__(self):
         self.last_temperature_info = (None, None)
+        self.forecasts = []
 
     @abstractproperty
     def source(self):
@@ -20,22 +21,28 @@ class AbstractRetriever:
     def observation_reload_delay(self):
         """time in seconds before checking for an updated observation"""
 
-    # @abstractproperty
+    @abstractproperty
     def forecast_reload_delay(self):
         """time in seconds before checking for an updated forecast"""
 
     @abstractmethod
-    def parse_observation_result_for_temperature(self, result):
+    def parse_observation_response(self, result):
         """do stuff"""
 
-    # @abstractmethod
-    def parse_forecast_result_for_temperature(self, result):
+    @abstractmethod
+    def parse_forecast_response(self, result):
         """stuff"""
 
-    # @abstractmethod
+    @abstractmethod
     def generate_observation_request_for_location(self, location):
         """takes a location object and constructs a URL that will
         retrieve an observation
+        """
+
+    @abstractmethod
+    def generate_forecast_request_for_location(self, location):
+        """takes a location object and constructs a URL that will
+        retrieve a forecast
         """
 
     def print_error(self, failure):
@@ -54,8 +61,15 @@ class AbstractRetriever:
             self.generate_observation_request_for_location(location)
         )
 
+    def retrieve_forecasts_by_schedule(self, location):
+        reactor.callLater(self.forecast_reload_delay,
+                          self.retrieve_forecasts_by_schedule,
+                          location)
+        print "Retrieving new forecast for", self.source
+        d = self.retrieve_forecast(location)
+        d.addCallbacks(self.handle_forecast, self.print_error)
+
     def retrieve_forecast(self, location):
-        #XXX - this might not be flexible enough given some use FTP
         return getPage(
             self.generate_forecast_request_for_location(location)
         )
@@ -64,17 +78,25 @@ class AbstractRetriever:
         reactor.callLater(period_seconds,
                           self.print_results_periodically,
                           period_seconds)
-        print "%s: %s last result: time %s, air temp %s" % (
+        print "%s: %s last observation result: time %s, air temp %s" % (
             time.ctime(),
             self.source,
             self.last_temperature_info[0],
             self.last_temperature_info[1])
+        [f.print_summary() for f in self.forecasts]
         # print "Delayed calls:"
         # pprint.pprint([r.func for r in reactor.getDelayedCalls()])
 
-    def handle_observation(self, result):
+    def handle_observation(self, response):
         print "Handling %s observation" % (self.source,)
         # parse
-        temperature_info = self.parse_observation_result_for_temperature(result)
+        temperature_info = self.parse_observation_response(response)
         # store
         self.last_temperature_info = temperature_info
+
+    def handle_forecast(self, response):
+        print "Handing %s forecast" % (self.source,)
+        # parse
+        forecasts = self.parse_forecast_response(response)
+        # store
+        self.forecasts = forecasts

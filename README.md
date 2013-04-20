@@ -11,6 +11,7 @@ Functional todo
 
 Technical todo
 --------------
+
 * AbstractHTTPRetriever -> AbstractRetriever
 * Move protocol/method specific retrieval methods into mix-in classes and make the
   general methods in the AbstractRetriever as @abstractmethod so an impl needs

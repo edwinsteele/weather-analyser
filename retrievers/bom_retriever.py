@@ -31,13 +31,20 @@ class BOMRetriever(AbstractRetriever):
     def observation_reload_delay(self):
         return 30
 
+    @property
+    def forecast_reload_delay(self):
+        raise NotImplementedError
+
     def generate_observation_request_for_location(self, location):
         return "http://www.bom.gov.au/fwo/ID%s60901/IDN60901.%s.json" % (
             location.BOM_STATE,
             location.BOM_STATION
         )
 
-    def parse_observation_result_for_temperature(self, result):
+    def generate_forecast_request_for_location(self, location):
+        raise NotImplementedError
+
+    def parse_observation_response(self, result):
         most_recent_ob = json.loads(
             result, parse_float=decimal.Decimal)["observations"]["data"][0]
         ob_datetime = datetime.datetime.strptime(
@@ -45,4 +52,5 @@ class BOMRetriever(AbstractRetriever):
             "%Y%m%d%H%M%S")
         return ob_datetime, most_recent_ob["air_temp"]
 
-
+    def parse_forecast_response(self, result):
+        raise NotImplementedError

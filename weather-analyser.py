@@ -27,6 +27,8 @@ if __name__ == "__main__":
                       WundergroundRetriever(WUNDERGROUND_API_KEY),
                       ForecastIoRetriever(FORECASTIO_API_KEY)):
         retriever.retrieve_observations_by_schedule(location)
+        if retriever.source in ("Forecast.io", "Wunderground"):  # quick hack to test FIO
+            retriever.retrieve_forecasts_by_schedule(location)
         reactor.callLater(1, retriever.print_results_periodically, 10)
 
     reactor.run()
