@@ -6,3 +6,4 @@ http://www.bom.gov.au/fwo/IDN60901/IDN60901.94768.json
 
 wunderground_observation.json obtained from:
 http://api.wunderground.com/api/<API_KEY>/conditions/q/Australia/Sydney.json
+http://api.wunderground.com/api/<API_KEY>/conditions/q/Australia/Sydney%20Regional%20Office.json

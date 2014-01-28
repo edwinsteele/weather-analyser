@@ -3,3 +3,4 @@ distribute==0.6.27
 pyOpenSSL==0.13
 wsgiref==0.1.2
 zope.interface==4.0.5
+dataset==0.3.14

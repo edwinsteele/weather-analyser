@@ -31,10 +31,10 @@ class Observation(object):
     def __init__(self, source, observation_datetime, temperature):
         self.source = source
         self.observation_datetime = observation_datetime
-        self.temperature = temperature
+        self.temperature = float(temperature)
 
     def print_summary(self):
-        print "%s: last observation result: time %s, air temp %s" % (
+        print "%s: observation result: time %s, air temp %s" % (
             self.source,
             self.observation_datetime,
             self.temperature)

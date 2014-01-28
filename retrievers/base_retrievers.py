@@ -1,7 +1,7 @@
+from __future__ import print_function
 from twisted.internet import reactor
 from twisted.web.client import getPage
 from abc import ABCMeta, abstractmethod, abstractproperty
-import time
 
 __author__ = 'esteele'
 
@@ -10,8 +10,8 @@ class AbstractRetriever:
     __metaclass__ = ABCMeta
 
     def __init__(self):
-        self.last_observation = None
-        self.forecasts = []
+        self.unpersisted_observations = []
+        self.unpersisted_forecasts = []
 
     @abstractproperty
     def source(self):
@@ -46,13 +46,13 @@ class AbstractRetriever:
         """
 
     def print_error(self, failure):
-        print "Errback", failure
+        print("Errback", failure)
 
     def retrieve_observations_by_schedule(self, location):
         reactor.callLater(self.observation_reload_delay,
                           self.retrieve_observations_by_schedule,
                           location)
-        print "Retrieving new observation for", self.source
+        print("%s: Retrieving new observation" % (self.source,))
         d = self.retrieve_observation(location)
         d.addCallbacks(self.handle_observation, self.print_error)
 
@@ -65,7 +65,7 @@ class AbstractRetriever:
         reactor.callLater(self.forecast_reload_delay,
                           self.retrieve_forecasts_by_schedule,
                           location)
-        print "Retrieving new forecast for", self.source
+        print("%s: Retrieving new forecast" % (self.source,))
         d = self.retrieve_forecast(location)
         d.addCallbacks(self.handle_forecast, self.print_error)
 
@@ -78,22 +78,23 @@ class AbstractRetriever:
         reactor.callLater(period_seconds,
                           self.print_results_periodically,
                           period_seconds)
-        if self.last_observation:
-            self.last_observation.print_summary()
-        [f.print_summary() for f in self.forecasts]
+        [o.print_summary() for o in self.unpersisted_observations]
+        [f.print_summary() for f in self.unpersisted_forecasts]
         # print "Delayed calls:"
         # pprint.pprint([r.func for r in reactor.getDelayedCalls()])
 
     def handle_observation(self, response):
-        print "Handling %s observation" % (self.source,)
+        print("%s: Handling observation" % (self.source,), end='')
         # parse
         ob = self.parse_observation_response(response)
         # store
-        self.last_observation = ob
+        self.unpersisted_observations.append(ob)
+        [o.print_summary() for o in self.unpersisted_observations]
 
     def handle_forecast(self, response):
-        print "Handing %s forecast" % (self.source,)
+        print("%s: Handling forecast" % (self.source,), end='')
         # parse
         forecasts = self.parse_forecast_response(response)
         # store
-        self.forecasts = forecasts
+        self.unpersisted_forecasts.extend(forecasts)
+        [f.print_summary() for f in self.unpersisted_forecasts]

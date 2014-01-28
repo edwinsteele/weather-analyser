@@ -11,4 +11,5 @@ class Sydney(LocationAdapter):
     BOM_STATE = "N"
     BOM_STATION = 94768
     WUNDERGROUND_MAJOR_LOC = "Australia"
-    WUNDERGROUND_MINOR_LOC = "Sydney"
+    #WUNDERGROUND_MINOR_LOC = "Sydney"
+    WUNDERGROUND_MINOR_LOC = "Sydney%20Regional%20Office"
